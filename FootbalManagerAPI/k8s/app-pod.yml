@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fmapi-services
+spec:
+  replicas: 1
+  spec:
+    containers:
+    - name: fmapi
+      image: us.gcr.io/modular-house-239108/fmapi-kuber:0.0.1
+      livenessProbe:
+          httpGet: 
+            path: /
+            port: 9000  
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: / 
+            port: 9000
+          initialDelaySeconds: 90
+          periodSeconds: 10
+      # - name: redis
+      # image: us.gcr.io/modular-house-239108/redis-kuber:0.0.1
+      # - name: postgres
+      # image: us.gcr.io/modular-house-239108/postgres-kuber:0.0.1

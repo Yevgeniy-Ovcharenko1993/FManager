@@ -1,0 +1,19 @@
+PORT=3000
+DB_USER=postgres
+# DB_HOST=localhost - running without docker compose 
+DB_HOST=postgres
+DB_NAME=name
+# DB_NAME=postgres
+DB_PASSWORD=pass
+DB_PORT=5432
+
+DB_REDIS_PORT=6379
+# DB_REDIS_HOST=127.0.0.1 - running without docker compose 
+DB_REDIS_HOST=redis
+# DB_REDIS_HOST=redis-server 
+DB_REDIS_PASSWORD=password
+
+ACCESS_TOKEN_TIME=15
+REFRESH_TOKEN_TIME=8
+
+SECRET=supersecret
