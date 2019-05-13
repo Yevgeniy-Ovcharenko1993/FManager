@@ -1,0 +1,8 @@
+version: "3.1"
+
+services:
+  node-app:
+    restart: always
+    build: .
+    env_file:
+      - src/.env
