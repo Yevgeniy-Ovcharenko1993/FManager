@@ -11,28 +11,31 @@ try {
   process.exit(1);
 }
 
-const redisConnection = redis.createClient({ port: REDIS_CONFIG.port, host: REDIS_CONFIG.host });
+function redisConnection() {
+  const rc = redis.createClient({ port: REDIS_CONFIG.port, host: REDIS_CONFIG.host });
 
-redisConnection.on('connect', () => {
-  log.info('Connected to Redis');
-  if (process.env.DB_REDIS_PASSWORD) {
-    redisConnection.auth(process.env.DB_REDIS_PASSWORD, () => {
-      log.info('Redis is authorized');
-      redisConnection.select(0);
-    });
-  } else {
-    redisConnection.select(0);
-  }
-});
+  rc.on('connect', () => {
+    log.info('Connected to Redis');
+    if (process.env.DB_REDIS_PASSWORD) {
+      rc.auth(process.env.DB_REDIS_PASSWORD, () => {
+        log.info('Redis is authorized');
+        rc.select(0);
+      });
+    } else {
+      rc.select(0);
+    }
+  });
 
-redisConnection.on('error', err => {
-  log.fatal(`Error connecting to Redis: ${err}`);
-  process.exit(1);
-});
+  rc.on('error', err => {
+    log.fatal(`Error connecting to Redis: ${err}`);
+    process.exit(1);
+  });
 
-redisConnection.on('ready', () => {
-  log.info('Redis is ready');
-});
+  rc.on('ready', () => {
+    log.info('Redis is ready');
+  });
+  return rc;
+}
 
 module.exports = {
   pgConnection,

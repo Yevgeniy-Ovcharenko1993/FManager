@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "lint-staged": "lint-staged",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "start": "node src/server.js",
     "dev": "node src/server.js | pino-pretty",
     "migration": "node src/migrations.js"
@@ -28,7 +28,8 @@
   },
   "eslintConfig": {
     "env": {
-      "node": true
+      "node": true,
+      "jest": true
     },
     "extends": [
       "airbnb-base",
@@ -58,6 +59,7 @@
     "bluebird": "^3.5.3",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^6.2.0",
+    "eslint-plugin-jest": "^22.20.0",
     "jsonwebtoken": "^8.5.0",
     "jwt-decode": "^2.2.0",
     "koa": "^2.6.2",
@@ -79,6 +81,7 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "jest": "^24.9.0",
     "pino-pretty": "^2.5.0",
     "prettier": "^1.14.3"
   },
