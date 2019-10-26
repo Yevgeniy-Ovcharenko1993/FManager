@@ -3,7 +3,7 @@ const log = require('./logger')(__filename);
 
 async function importDBScema() {
   try {
-    const connection = await pgConnection;
+    const connection = await pgConnection();
     log.info('Received connection before starting importing Database schema');
 
     await connection.query(

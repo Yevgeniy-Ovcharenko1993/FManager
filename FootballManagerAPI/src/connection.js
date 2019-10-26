@@ -3,12 +3,13 @@ const redis = require('redis');
 const log = require('./logger')(__filename);
 const { POSTGRES_CONFIG, REDIS_CONFIG } = require('./config');
 
-const pgConnection = new pg.Pool(POSTGRES_CONFIG);
-try {
-  pgConnection.connect();
-} catch (error) {
-  log.fatal(error, 'INITIAL conection to DB has been failed');
-  process.exit(1);
+async function pgConnection() {
+  const pc = new pg.Pool(POSTGRES_CONFIG);
+  if (pc) {
+    await pc.connect();
+    return pc;
+  }
+  throw new Error('error');
 }
 
 function redisConnection() {
