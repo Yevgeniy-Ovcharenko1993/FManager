@@ -23,6 +23,16 @@ async function addChampLeague(obj) {
   }
 }
 
+async function updateChampLeague(obj) {
+  try {
+    await chapmLeague.updateChampLeague(obj);
+    return { status: 200, message: 'ChampLeague has been updated' };
+  } catch (error) {
+    log.error(error, 'Update ChampLeague failed to handle');
+    return badRequest;
+  }
+}
+
 async function deleteChampLeague(id) {
   try {
     const { rowCount } = await chapmLeague.deleteChampLeague(id);
@@ -32,16 +42,6 @@ async function deleteChampLeague(id) {
     return { message: 'ChampLeague sucessfylly deleted', status: 200 };
   } catch (error) {
     log.error(error, 'Delete ChampLeague has failed to handle');
-    return badRequest;
-  }
-}
-
-async function updateChampLeague(obj) {
-  try {
-    await chapmLeague.updateChampLeague(obj);
-    return { status: 200, message: 'ChampLeague has been updated' };
-  } catch (error) {
-    log.error(error, 'Update ChampLeague failed to handle');
     return badRequest;
   }
 }
