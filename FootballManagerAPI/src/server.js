@@ -43,7 +43,7 @@ app.use(routerChampLeague.allowedMethods());
 
 app.listen(PORT, () => {
   log.info(`server has been started on http://localhost:${PORT}`);
-  importSchema();
+  importSchema.importDBSchema();
 });
 
 process.on('SIGINT', async () => {

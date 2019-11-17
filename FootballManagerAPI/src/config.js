@@ -14,8 +14,8 @@ const REDIS_CONFIG = {
   password: process.env.DB_REDIS_PASSWORD,
 };
 
-console.log(process.env.DB_NAME);
-console.log(process.env.DB_PASSWORD);
+// console.log(process.env.DB_NAME);
+// console.log(process.env.DB_PASSWORD);
 
 module.exports = {
   POSTGRES_CONFIG,

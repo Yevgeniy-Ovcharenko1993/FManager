@@ -1,6 +1,9 @@
-const { pgConnection, redisConnection } = require('../connection');
+const { pgConnection, redisClient } = require('../connection');
 
 describe('connection postgres', () => {
+  // beforeEach(async () => {
+  //   jest.mock(redisClient);
+  // });
   it('should not connect sucess to database', async () => {
     await expect(pgConnection()).rejects.toThrow('connect ECONNREFUSED 127.0.0.1:5432');
   });
@@ -12,6 +15,6 @@ describe('connection postgres', () => {
 
 describe('connection redis', () => {
   it('should connection exist', async () => {
-    await expect(redisConnection()).not.toBeNull();
+    await expect(redisClient).not.toBeNull();
   });
 });

@@ -1,6 +1,6 @@
 jest.mock('pg');
 jest.mock('../../db/postgres/queriesChampLeague');
-jest.mock('../../connection');
+jest.mock('../../connection', () => ({}));
 
 const champLeague = require('../../db/postgres/queriesChampLeague');
 
@@ -23,18 +23,22 @@ describe('queries champions league tests', () => {
   };
 
   it('should write data into the database champLeague table', async () => {
-    expect(champLeague.insertChampLeague(data)).resolves.toBe({ status: 'INSERTED' });
+    await expect(champLeague.insertChampLeague(data)).resolves.toStrictEqual({
+      status: 'INSERTED',
+    });
   });
 
   it('should select data from champLeague table', async () => {
-    expect(champLeague.selectFromChampLeague()).resolves.toBe({ status: 'SELECTED' });
+    await expect(champLeague.selectFromChampLeague()).resolves.toStrictEqual({
+      status: 'SELECTED',
+    });
   });
 
   it('should write data into the database champLeague table', async () => {
-    expect(champLeague.updateChampLeague(data)).resolves.toBe({ status: 'UPDATED' });
+    await expect(champLeague.updateChampLeague(data)).resolves.toStrictEqual({ status: 'UPDATED' });
   });
 
   it('should write data into the database champLeague table', async () => {
-    expect(champLeague.deleteChampLeague(data)).resolves.toBe({ status: 'DELETED' });
+    await expect(champLeague.deleteChampLeague(data)).resolves.toStrictEqual({ status: 'DELETED' });
   });
 });

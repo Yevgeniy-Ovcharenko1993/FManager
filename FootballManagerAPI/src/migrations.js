@@ -1,11 +1,9 @@
 const { pgConnection } = require('./connection');
 const log = require('./logger')(__filename);
 
-async function importDBScema() {
-  try {
-    const connection = await pgConnection();
-    log.info('Received connection before starting importing Database schema');
-
+async function importDBSchema() {
+  const connection = await pgConnection();
+  if (connection) {
     await connection.query(
       'CREATE TABLE IF NOT EXISTS public.leagues (id SERIAL NOT NULL PRIMARY KEY, title varchar(255) NOT NULL, imagesUrl varchar(255) NOT NULL);',
     );
@@ -30,9 +28,9 @@ async function importDBScema() {
       'CREATE TABLE IF NOT EXISTS public.users (id SERIAL NOT NULL PRIMARY KEY, username varchar(50) NOT NULL, email varchar(100) UNIQUE NOT NULL, userpassword  varchar(1024) NOT NULL);',
     );
     log.info('finished creating users table');
-  } catch (error) {
-    log.error(error, 'Failed to import schema ');
+  } else {
+    throw new Error('Failed to import schema');
   }
 }
 
-module.exports = importDBScema;
+module.exports = { importDBSchema };

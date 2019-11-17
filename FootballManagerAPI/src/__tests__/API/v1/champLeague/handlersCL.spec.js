@@ -1,8 +1,8 @@
-jest.mock('pg');
 jest.mock('../../../../db/postgres/queriesChampLeague');
-jest.mock('../../../../connection');
+jest.mock('../../../../connection', () => ({}));
 
 const champLeague = require('../../../../db/postgres/queriesChampLeague');
+
 const handlersChampLeague = require('../../../../API/v1/champLeague/handlersChampLeague');
 
 const promiseResolved = Promise.resolve({

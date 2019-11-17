@@ -1,9 +1,9 @@
 const { promisify } = require('util');
-const { redisConnection } = require('../../connection');
+const { redisClient } = require('../../connection');
 
-const getAsync = promisify(redisConnection().get).bind(redisConnection());
-const setAsync = promisify(redisConnection().set).bind(redisConnection());
-const removeAsync = promisify(redisConnection().del).bind(redisConnection());
+const getAsync = promisify(redisClient.get).bind(redisClient);
+const setAsync = promisify(redisClient.set).bind(redisClient);
+const removeAsync = promisify(redisClient.del).bind(redisClient);
 
 async function setRefreshToken({ userId, refreshToken }) {
   return setAsync(userId, refreshToken, 'EX', 2000);

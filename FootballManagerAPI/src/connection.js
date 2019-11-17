@@ -12,33 +12,30 @@ async function pgConnection() {
   throw new Error('error');
 }
 
-function redisConnection() {
-  const rc = redis.createClient({ port: REDIS_CONFIG.port, host: REDIS_CONFIG.host });
+const redisClient = redis.createClient({ port: REDIS_CONFIG.port, host: REDIS_CONFIG.host });
 
-  rc.on('connect', () => {
-    log.info('Connected to Redis');
-    if (process.env.DB_REDIS_PASSWORD) {
-      rc.auth(process.env.DB_REDIS_PASSWORD, () => {
-        log.info('Redis is authorized');
-        rc.select(0);
-      });
-    } else {
-      rc.select(0);
-    }
-  });
+redisClient.on('connect', () => {
+  log.info('Connected to Redis');
+  if (process.env.DB_REDIS_PASSWORD) {
+    redisClient.auth(process.env.DB_REDIS_PASSWORD, () => {
+      log.info('Redis is authorized');
+      redisClient.select(0);
+    });
+  } else {
+    redisClient.select(0);
+  }
+});
 
-  rc.on('error', err => {
-    log.fatal(`Error connecting to Redis: ${err}`);
-    process.exit(1);
-  });
+redisClient.on('error', err => {
+  log.error(err, 'Error connecting to Redis');
+  // process.exit(1);
+});
 
-  rc.on('ready', () => {
-    log.info('Redis is ready');
-  });
-  return rc;
-}
+redisClient.on('ready', () => {
+  log.info('Redis is ready');
+});
 
 module.exports = {
   pgConnection,
-  redisConnection,
+  redisClient,
 };

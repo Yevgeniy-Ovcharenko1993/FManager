@@ -9,7 +9,7 @@ module.exports = (name = '', conf = { base: null }) => {
   const options = Object.assign({}, conf, {
     name: ns,
     level: process.env.LOG_LEVEL || 'trace',
-    enabled: process.env.LOG_ENABLED || true,
+    enabled: process.env.LOG_ENABLED || false,
   });
 
   const log = pino(options);
