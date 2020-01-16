@@ -14,11 +14,11 @@ services:
     depends_on:
       - postgres
       - redis
-      - pgadmin
+#      - pgadmin
     links:
       - postgres
       - redis
-      - pgadmin
+#      - pgadmin
 
   postgres:
     image: postgres:11-alpine
@@ -34,35 +34,3 @@ services:
     restart: always
     volumes:
       - ./.db/redis:/data
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - '8080:80'
-    volumes:
-      # - ./.db/pgadmin-servers.json:/pgadmin4/servers.json
-      - ./.db/pgadmin:/var/lib/pgadmin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=postgres
-      - PGADMIN_DEFAULT_PASSWORD=buromax
-  # commander:
-  #   image: rediscommander/redis-commander
-  #   environment:
-  #     - DB_REDIS_HOSTS=local:redis:6379
-  #   ports:
-  #     - '9001:8081'
-  #   links:
-  #     - redis
-  #   depends_on:
-  #     - redis
-  # environment:
-  #   - PORT=3000
-  #   - DB_REDIS_HOST=redis
-  #   - SECRET=72f98b072c9defe317ec9cc3656d8ac808fcf3f8513027d8a76a97591af06d63c6fadf1e2fa4650396b9356ed91adaa1
-  # environment:
-  #   - DB_USER=postgres
-  #   - DB_HOST=localhost
-  #   - DB_NAME=footbalmanaginginfo
-  #   - DB_PASSWORD=buromax
-  #   - DB_PORT=5432
